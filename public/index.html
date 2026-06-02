@@ -3,43 +3,73 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title id="page-title">gn-math</title>
+<title id="page-title">13</title>
 <link href="https://fonts.googleapis.com/css2?family=Schoolbell&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="game-files/gn-math/style.css">
 <style>
-  /* Keep any general styles */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06060a;--bg2:#0b0b13;--bg3:#13131e;
+  --glass:rgba(255,255,255,0.045);--glass-border:rgba(255,255,255,0.085);
+  --glass-hi:rgba(255,255,255,0.14);
+  --accent:#d0d1e2;--accent2:#8e8fb2;--accent-glow:rgba(166,170,228,0.18);
+  --accent-grad:linear-gradient(135deg,#e7e8f4,#aeb0d6);
+  --accent-cyan:rgba(126,205,228,0.5);
+  --text:#f6f7fc;--muted:#6b6c82;--muted2:#23232f;--card:#0a0a12;--radius:16px;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--glass-border);border-radius:9px}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(60% 50% at 76% 10%,rgba(112,122,214,0.14),transparent 70%),
+  radial-gradient(55% 45% at 10% 90%,rgba(82,182,202,0.09),transparent 72%),
+  radial-gradient(45% 40% at 50% 55%,rgba(150,140,224,0.05),transparent 70%),
+  linear-gradient(180deg,#0a0a14 0%,#050509 100%);}
+body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 40%,#000 0%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 0%,transparent 80%);}
 </style>
 </head>
 <body data-nav="bottom">
-
 <canvas id="bg"></canvas>
 <div id="toast"></div>
 
 <!-- NAVIGATION -->
 <nav id="topnav">
-  <div class="nav-logo" id="nav-logo-text">gn-math</div>
+  <div class="nav-logo" id="nav-logo-text">13</div>
 </nav>
 
-<!-- GAME SECTION (ONLY gn-math) -->
+<!-- GAMES STORE SECTION -->
 <div class="section" id="games-section">
   <canvas id="g-canvas"></canvas>
   <div id="g-ui">
     <div id="g-top">
-      <div id="g-title">gn-math</div>
+      <div id="g-title">Game Store</div>
     </div>
     <div id="g-scroll">
-      <!-- gn-math Game Embed -->
-      <iframe src="game-files/gn-math/index.html" 
-              id="gn-math-game-frame" 
-              title="gn-math Game" 
-              style="width:100%; height:600px; border:none;">
-      </iframe>
+      <!-- Game Cards -->
+      <div class="gtp active" id="gtp-store">
+        <div id="g-store-inner">
+          <div class="ghrow"><div class="gsl">gn-math Game Source</div></div>
+          <div class="ghscroll" id="row-gnmath">
+            <div class="gc">
+              <iframe src="game-files/gn-math/index.html" title="gn-math Game" style="width:100%; height:300px; border:none;"></iframe>
+              <div class="gc-info">
+                <div class="gc-name">gn-math</div>
+                <div class="gc-src">Local Repository</div>
+              </div>
+            </div>
+          </div>
+          <div style="height:16px"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  // JS logic for game integration (customized for gn-math)
+  // Any required JS for store integration
 </script>
 </body>
 </html>
