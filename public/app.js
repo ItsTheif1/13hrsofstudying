@@ -3,29 +3,34 @@
    ══════════════════════════════════════ */
 var CORRECT_CODE = 'idontknowhowtocode';
 
-var GNM_BASE = 'https://cdn.jsdelivr.net/gh/Lowelldf/13-game-assets@tree/main/Game-filess/';
-
 var CLOAK_MAP = {none:{title:null,favicon:null},classroom:{title:'Stream - Google Classroom',favicon:'https://ssl.gstatic.com/classroom/favicon.png'},docs:{title:'Document - Google Docs',favicon:'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico'},khan:{title:'Math | Khan Academy',favicon:'https://cdn.kastatic.org/images/favicon.ico'},duolingo:{title:'Duolingo',favicon:'https://d35aaqx5ub95lt.cloudfront.net/favicon.ico'},desmos:{title:'Desmos | Graphing Calculator',favicon:'https://www.desmos.com/assets/img/favicon.ico'}};
 var S = {theme:'black',name:localStorage.getItem('s_name')||'mizumath copy',proxy:localStorage.getItem('s_proxy')||'uv',cloak:localStorage.getItem('s_cloak')||'none',navPlace:localStorage.getItem('s_navplace')||'bottom'};
 
-var GNM_GAMES = [
-  {id:179,name:'Slope'},{id:27,name:'1v1.LOL'},{id:34,name:'Minecraft Classic'},
-  {id:45,name:'Cookie Clicker'},{id:12,name:'Run 3'},{id:88,name:'Retro Bowl'},
-  {id:55,name:'Drift Boss'},{id:67,name:'Snake'},{id:23,name:'Paper.io 2'},
-  {id:91,name:'2048'},{id:14,name:'Geometry Dash'},{id:38,name:'Krunker.io'},
-  {id:72,name:'Bullet Force'},{id:19,name:'Eggy Car'},{id:103,name:'Drift Hunters'},
-  {id:61,name:'Stickman Hook'},{id:44,name:'Shell Shockers'},{id:57,name:'Minesweeper'},
-  {id:82,name:'Among Us'},{id:31,name:'Tetris'},{id:29,name:'Flappy Bird'},
-  {id:16,name:'Doodle Jump'},{id:21,name:'Basketball Stars'},{id:50,name:'Rooftop Snipers'},
-  {id:63,name:'Boxing Random'},{id:77,name:'Traffic Rider'},{id:9,name:'Smash Karts'},
-  {id:18,name:'Vex 5'},{id:42,name:'Tank Trouble'},{id:66,name:'Bloons TD 5'}
-];
-var ALL = GNM_GAMES.map(function(g){return {name:g.name, url:GNM_BASE+g.id+'.html', id:g.id};});
+var ALL = [];
 var GLIB = JSON.parse(localStorage.getItem('gamelibv2')||'[]');
 var selectedGame = null;
 var proxyHistory = [], proxyHistoryIndex = -1;
 var weatherLoaded = false, moviesLoaded = false, navHidden = false;
 var curGSGame = null;
+
+/* ── Load games from g.json ── */
+(function(){
+  fetch('./g.json')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      ALL = (data.games||[]).map(function(g){
+        return {
+          name: g.name,
+          filepath: g.filepath,
+          icon: g.icon || g['icon.png'],
+          url: g.filepath
+        };
+      });
+      renderStoreGrid('');
+      showNoGame();
+    })
+    .catch(function(e){console.error('Failed to load g.json:',e)});
+})();
 
 /* ── GATE ── */
 (function(){if(localStorage.getItem('gate_passed')==='1'){document.getElementById('gate').style.display='none';if(!localStorage.getItem('gamertag'))setTimeout(openTagModal,300);}})();
@@ -105,7 +110,7 @@ function loop(t){bgX.clearRect(0,0,bgC.width,bgC.height);pts.forEach(function(p)
 requestAnimationFrame(loop);
 
 /* ══════════════════════════════════
-   GAME LIBRARY — gn-math only
+   GAME LIBRARY — local games from g.json
    ══════════════════════════════════ */
 
 document.querySelectorAll('.gtab').forEach(function(b){b.addEventListener('click',function(){switchGTab(this.dataset.t);});});
@@ -164,8 +169,9 @@ function renderLibList(q){
   games.forEach(function(g){
     var item=document.createElement('div');
     item.className='lib-item'+(selectedGame&&selectedGame.url===g.url?' selected':'');
-    item.innerHTML='<div class="lib-thumb">'+g.name[0].toUpperCase()+'</div>'+
-      '<div><div class="lib-item-name">'+g.name+'</div><div class="lib-item-src">gn-math</div></div>';
+    var thumb=g.icon?'<img src="'+g.icon+'" alt="'+g.name+'">':g.name[0].toUpperCase();
+    item.innerHTML='<div class="lib-thumb">'+thumb+'</div>'+
+      '<div><div class="lib-item-name">'+g.name+'</div><div class="lib-item-src">local</div></div>';
     item.addEventListener('click',function(){selectGame(g);});
     list.appendChild(item);
   });
@@ -178,7 +184,7 @@ function selectGame(game){
   feat.style.display='block';
   document.getElementById('g-no-game').style.display='none';
   document.getElementById('g-feat-title').textContent=game.name;
-  document.getElementById('g-feat-src').textContent='gn-math · Free';
+  document.getElementById('g-feat-src').textContent='local · Free';
   document.getElementById('g-store-wrap').style.display='none';
   document.getElementById('g-discover-wrap').style.display='none';
 }
@@ -202,8 +208,9 @@ function renderStoreGrid(q){
   games.forEach(function(g){
     var inLib=GLIB.indexOf(g.url)>=0;
     var el=document.createElement('div');el.className='gsc';
-    el.innerHTML='<div class="gsc-art-ph">'+g.name[0].toUpperCase()+'</div>'+
-      '<div class="gsc-body"><div class="gsc-name">'+g.name+'</div><div class="gsc-src">gn-math</div>'+ 
+    var artPh=g.icon?'<img src="'+g.icon+'" alt="'+g.name+'" style="width:100%;height:100%;object-fit:cover;">':g.name[0].toUpperCase();
+    el.innerHTML='<div class="gsc-art-ph">'+artPh+'</div>'+
+      '<div class="gsc-body"><div class="gsc-name">'+g.name+'</div><div class="gsc-src">local</div>'+ 
       '<div class="gsc-foot"><button class="g-add'+(inLib?' owned':'')+'" data-url="'+g.url+'">'+(inLib?'✔ Added':'+ Get')+'</button></div></div>';
     el.querySelector('.g-add').addEventListener('click',function(e){
       e.stopPropagation();
@@ -223,7 +230,8 @@ function renderDiscover(){
 }
 function mkCard(game){
   var el=document.createElement('div');el.className='gc';
-  el.innerHTML='<div class="gc-ph"><div class="gc-ph-l">'+game.name[0].toUpperCase()+'</div></div>'+
+  var phContent=game.icon?'<img src="'+game.icon+'" alt="'+game.name+'" style="width:100%;height:100%;object-fit:cover;">':'<div class="gc-ph-l">'+game.name[0].toUpperCase()+'</div>';
+  el.innerHTML='<div class="gc-ph">'+phContent+'</div>'+
     '<div class="gc-glow"></div>'+
     '<div class="gc-info"><div class="gc-name">'+game.name+'</div></div>';
   el.addEventListener('click',function(){openGS(game);});
@@ -235,9 +243,13 @@ function openGS(game){
   curGSGame=game;
   var inLib=GLIB.indexOf(game.url)>=0;
   document.getElementById('gs-title').textContent=game.name;
-  document.getElementById('gs-meta').textContent='gn-math · Free';
+  document.getElementById('gs-meta').textContent='local · Free';
   document.getElementById('gs-desc').textContent=inLib?'Already in your Library. Switch to the Library tab to play.':'Add this game to your Library, then play it from the Library tab.';
-  document.getElementById('gs-art-ph').textContent=game.name[0].toUpperCase();
+  if(game.icon){
+    document.getElementById('gs-art-ph').innerHTML='<img src="'+game.icon+'" alt="'+game.name+'" style="width:100%;height:100%;object-fit:cover;">';
+  } else {
+    document.getElementById('gs-art-ph').textContent=game.name[0].toUpperCase();
+  }
   var btn=document.getElementById('gs-add2');
   btn.textContent=inLib?'✔ In Library':'+ Add to Library';
   btn.className=inLib?'owned':'';
@@ -255,7 +267,7 @@ function gsAdd(){
 }
 
 /* ── proxy overlay ── */
-function buildProxyUrl(url){if(!url||url==='about:blank')return url;if(url.startsWith('https://cdn.jsdelivr.net/'))return url;return'/proxy?url='+encodeURIComponent(url);}
+function buildProxyUrl(url){if(!url||url==='about:blank')return url;if(url.startsWith('./')||url.startsWith('/g/'))return url;return'/proxy?url='+encodeURIComponent(url);}
 document.getElementById('proxy-back-btn').addEventListener('click',function(){if(proxyHistoryIndex>0){proxyHistoryIndex--;var u=proxyHistory[proxyHistoryIndex];document.getElementById('proxy-url-bar').value=u;document.getElementById('game-overlay-iframe').src=buildProxyUrl(u);updateProxyNav();}});
 document.getElementById('proxy-fwd-btn').addEventListener('click',function(){if(proxyHistoryIndex<proxyHistory.length-1){proxyHistoryIndex++;var u=proxyHistory[proxyHistoryIndex];document.getElementById('proxy-url-bar').value=u;document.getElementById('game-overlay-iframe').src=buildProxyUrl(u);updateProxyNav();}});
 document.getElementById('proxy-refresh-btn').addEventListener('click',function(){var iframe=document.getElementById('game-overlay-iframe'),src=iframe.src;iframe.src='about:blank';setTimeout(function(){iframe.src=src;},50);});
@@ -302,5 +314,3 @@ updateClock();setInterval(updateClock,1000);
 /* ── INIT ── */
 applyName(S.name);setProxy(S.proxy);applyCloak(S.cloak);applyNavPlacement(S.navPlace);updateStatusBar();
 (function(){var h=new Date().getHours();document.getElementById('home-greeting').textContent=h>=5&&h<12?'good morning':h>=12&&h<17?'good afternoon':h>=17&&h<21?'good evening':'good night';})();
-renderStoreGrid('');
-showNoGame();

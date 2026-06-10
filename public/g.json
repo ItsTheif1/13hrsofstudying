@@ -1,0 +1,14 @@
+{
+  "games": [
+    {
+      "name": "Something",
+      "filepath": "./g/something/index.html",
+      "icon": "./g/something/icon.png"
+    },
+    {
+      "name": "Karlson",
+      "filepath": "./g/karlson/index.html",
+      "icon": "./g/karlson/icon.png"
+    }
+  ]
+}
