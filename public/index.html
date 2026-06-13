@@ -12,7 +12,6 @@
 <div id="toast"></div>
 <div id="nav-hint">Shift+Tab to show nav</div>
 
-<!-- GATE -->
 <div id="gate">
   <div id="gate-box">
     <div id="gate-logo">13</div>
@@ -23,7 +22,6 @@
   </div>
 </div>
 
-<!-- GAMERTAG -->
 <div id="tag-overlay">
   <div id="tag-modal">
     <div class="tag-header"><div class="tag-title">Gamertag</div><button class="tag-close" id="tag-close-btn">&#x2715;</button></div>
@@ -57,7 +55,6 @@
   <div class="nav-spacer"></div>
 </nav>
 
-<!-- HOME -->
 <div class="section active" id="home-section">
   <div id="home-inner">
     <div class="home-eyebrow" id="home-greeting">good morning</div>
@@ -71,12 +68,10 @@
   </div>
 </div>
 
-<!-- GAMES — Steam layout -->
 <div class="section" id="games-section">
   <canvas id="g-canvas"></canvas>
   <div id="g-grain"></div><div id="g-vig"></div>
   <div id="g-ui">
-    <!-- Sidebar -->
     <div id="g-sidebar">
       <div id="g-sidebar-top">
         <div id="g-sidebar-title">Library</div>
@@ -94,9 +89,7 @@
         <div class="lib-empty-msg" id="g-lib-empty"><span class="lib-empty-icon">🎮</span>Library is empty.<br>Add games from the Store.</div>
       </div>
     </div>
-    <!-- Main -->
     <div id="g-main">
-      <!-- Feature (library mode) -->
       <div id="g-feature" style="display:none">
         <div id="g-feat-bg"></div>
         <div id="g-feat-overlay"></div>
@@ -113,16 +106,13 @@
           <div class="no-game-text">Select a game from your library<br>to see it here</div>
         </div>
       </div>
-      <!-- Scrollable content -->
       <div id="g-scroll-area">
-        <!-- Store -->
         <div id="g-store-wrap">
           <div class="store-hdr"><div class="store-hdr-title">Game Store</div><span id="g-count"></span></div>
           <div id="g-store-loading" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 0;color:rgba(255,255,255,.3);font-size:.75rem"><div class="spinner"></div><span>Loading…</span></div>
           <div id="g-store-grid"></div>
           <div style="height:20px"></div>
         </div>
-        <!-- Discover (hidden by default) -->
         <div id="g-discover-wrap" style="display:none">
           <div class="ghrow"><div class="gsl">&#9733; All Games</div><div class="ghscroll" id="row-all"></div></div>
           <div class="ghrow"><div class="gsl">&#128293; Shuffled Picks</div><div class="ghscroll" id="row-shuffle"></div></div>
@@ -133,7 +123,6 @@
   </div>
 </div>
 
-<!-- PARTNERS -->
 <div class="section" id="partners-section">
   <div id="partners-inner">
     <div class="partners-title">Partners</div>
@@ -146,7 +135,6 @@
   </div>
 </div>
 
-<!-- SETTINGS -->
 <div class="section" id="settings-section">
   <div id="settings-inner">
     <div class="settings-wrap">
@@ -202,7 +190,6 @@
   </div>
 </div>
 
-<!-- APPS — icon launcher with slide-in panels -->
 <div class="section" id="apps-section" style="position:fixed;inset:0">
   <div id="apps-home">
     <div id="apps-grid-wrap">
@@ -231,7 +218,6 @@
       </div>
     </div>
 
-    <!-- Notes panel -->
     <div class="app-panel" id="panel-notes">
       <div class="panel-topbar">
         <button class="panel-back" data-panel="notes">&#8592;</button>
@@ -242,7 +228,6 @@
       </div>
     </div>
 
-    <!-- Dictionary panel -->
     <div class="app-panel" id="panel-dictionary">
       <div class="panel-topbar">
         <button class="panel-back" data-panel="dictionary">&#8592;</button>
@@ -257,7 +242,6 @@
       </div>
     </div>
 
-    <!-- Music panel -->
     <div class="app-panel" id="panel-music">
       <div class="panel-topbar">
         <button class="panel-back" data-panel="music">&#8592;</button>
@@ -277,7 +261,6 @@
       </div>
     </div>
 
-    <!-- Weather panel -->
     <div class="app-panel" id="panel-weather">
       <div class="panel-topbar">
         <button class="panel-back" data-panel="weather">&#8592;</button>
@@ -290,18 +273,16 @@
   </div>
 </div>
 
-<!-- MOVIES -->
 <div class="section" id="movies-section">
   <div id="movies-inner">
     <iframe id="movies-frame" src="about:blank" style="width:100%;height:100%;border:none;background:var(--bg)" allow="autoplay;fullscreen;encrypted-media;picture-in-picture;clipboard-write" referrerpolicy="no-referrer"></iframe>
   </div>
 </div>
 
-<!-- PROXY OVERLAY -->
 <div id="game-overlay">
   <div id="proxy-bar">
     <button class="proxy-nav-btn" id="proxy-back-btn">&#8592;</button>
-    <button class="proxy-nav-btn" id="proxy-fwd-btn">&#8594;</button>
+    <button class="proxy-nav-btn" id="proxy-fwd-btn">&#8Warm up your engines!</button>
     <button class="proxy-nav-btn" id="proxy-refresh-btn">&#8635;</button>
     <input type="text" id="proxy-url-bar" placeholder="Enter URL or search…"/>
     <button id="game-exit-btn">&#x2715;</button>
@@ -309,7 +290,6 @@
   <iframe id="game-overlay-iframe" allow="fullscreen;autoplay;gamepad;encrypted-media;clipboard-write" referrerpolicy="no-referrer"></iframe>
 </div>
 
-<!-- GAME DETAIL SHEET — store: add to library only, play from library -->
 <div id="gs-bd" onclick="closeGS()"></div>
 <div id="gs">
   <div id="gs-handle"></div>
