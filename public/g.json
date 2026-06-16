@@ -9,6 +9,11 @@
       "name": "Karlson",
       "filepath": "./g/karlson/index.html",
       "icon": "./g/karlson/icon.png"
+      {
+      "name": "AngryBirds",
+      "filepath": "./g/angrybirds/index.html",
+      "icon": "./g/angrybirds/icon.png"
+    },
     }
   ]
 }
