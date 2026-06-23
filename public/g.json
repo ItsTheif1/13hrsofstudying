@@ -11,6 +11,11 @@
       "icon": "./g/karlson/icon.png"
     },
     {
+      "name": "Milkman Karlson",
+      "filepath": "./g/milkman/index.html",
+      "icon": "./g/milkman/icon.png"
+    },
+    {
       "name": "angrybirds",
       "filepath": "./g/angrybirds/index.html",
       "icon": "./g/angrybirds/icon.png"
