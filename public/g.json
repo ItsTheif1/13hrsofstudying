@@ -31,9 +31,9 @@
       "icon": "./g/ULTRAKILL/icon.png"
     },
     {
-      "name": "TABS",
-      "filepath": "./g/TABS/index.html",
-      "icon": "./g/TABS/icon.png"
+      "name": "tabs",
+      "filepath": "./g/tabs/index.html",
+      "icon": "./g/tabs/icon.png"
     }
   ]
 }
