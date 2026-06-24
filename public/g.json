@@ -24,6 +24,11 @@
       "name": "nzp",
       "filepath": "./g/nzp/index.html",
       "icon": "./g/nzp/icon.png"
+    },
+    {
+      "name": "ULTRAKILL",
+      "filepath": "./g/ULTRAKILL/index.html",
+      "icon": "./g/ULTRAKILL/icon.png"
     }
   ]
 }
