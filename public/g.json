@@ -34,6 +34,11 @@
       "name": "tabs",
       "filepath": "./g/tabs/index.html",
       "icon": "./g/tabs/icon.png"
+    },
+     {
+      "name": "hollow kngiht",
+      "filepath": "./g/hollow kngiht/index.html",
+      "icon": "./g/hollow kngiht/icon.png"
     }
   ]
 }
