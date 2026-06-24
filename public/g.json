@@ -19,6 +19,11 @@
       "name": "angrybirds",
       "filepath": "./g/angrybirds/index.html",
       "icon": "./g/angrybirds/icon.png"
+    },
+    {
+      "name": "nzp",
+      "filepath": "./g/nzp/index.html",
+      "icon": "./g/nzp/icon.png"
     }
   ]
 }
