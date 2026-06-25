@@ -40,10 +40,15 @@
       "filepath": "./g/whos your daddy/index.html",
       "icon": "./g/whos your daddy/icon.png"
     },
+   {
+      "name": "hollow kngiht",
+      "filepath": "./g/hollow kngiht/index.html",
+      "icon": "./g/hollow kngiht/icon.png"
+    },
     {
-    "name": "OvO",
-    "icon": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/1.png",
-    "filepath": "https://cdn.jsdelivr.net/gh/gn-math/html@main/1.html",
-  }
+      "name": "hollow knight silksong",
+      "filepath": "./g/hollow knight silksong/index.html",
+      "icon": "./g/hollow kngiht silksong/icon.png"
+    }
   ]
 }
