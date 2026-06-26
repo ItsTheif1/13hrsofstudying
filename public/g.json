@@ -39,6 +39,11 @@
       "name": "whos your daddy",
       "filepath": "./g/whos your daddy/index.html",
       "icon": "./g/whos your daddy/icon.png"
+    },
+    {
+      "name": "Super Mario FPS",
+      "filepath": "./g/smfps/index.html",
+      "icon": "./g/smfps/icon.png"
     }
   ]
 }
