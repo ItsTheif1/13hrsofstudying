@@ -44,6 +44,81 @@
       "name": "Super Mario FPS",
       "filepath": "./g/smfps/index.html",
       "icon": "./g/smfps/icon.png"
-    }
+    },
+     {
+      "name": "slope",
+      "filepath": "./g/slope/index.html",
+      "icon": "./g/slope/icon.png"
+     },
+     {
+      "name": "Plants VS Zombies 2",
+      "filepath": "./g/pvs2/index.html",
+      "icon": "./g/pvs2/icon.png"
+    },
+     {
+      "name": "cookie clicker",
+      "filepath": "./g/cookie clicker/index.html",
+      "icon": "./g/cookie clicker/icon.png"
+     },
+    {
+      "name": "volley random",
+      "filepath": "./g/volley random/index.html",
+      "icon": "./g/volley random/icon.png"
+     },
+    {
+      "name": "tomodachi life",
+      "filepath": "./g/tomodachi life/index.html",
+      "icon": "./g/tomodachi life/icon.png"
+     },
+    {
+      "name": "tomb of the mask (owner fav)",
+      "filepath": "./g/tomb of the mask (owner fav)/index.html",
+      "icon": "./g/tomb of the mask (owner fav/icon.png"
+     },
+       {
+      "name": "minecraft",
+      "filepath": "./g/minecraft/index.html",
+      "icon": "./g/minecraft/icon.png"
+     },
+       {
+      "name": "slow roads",
+      "filepath": "./g/slow roads/index.html",
+      "icon": "./g/slow roads/icon.png"
+     },
+       {
+      "name": "soccer random",
+      "filepath": "./g/soccer random/index.html",
+      "icon": "./g/soccer random/icon.png"
+     },
+       {
+      "name": "subway surfers",
+      "filepath": "./g/subway surfers/index.html",
+      "icon": "./g/subway surfers/icon.png"
+     },
+       {
+      "name": "superhot",
+      "filepath": "./g/superhot/index.html",
+      "icon": "./g/superhot/icon.png"
+     },
+       {
+      "name": "basket random",
+      "filepath": "./g/basket random/index.html",
+      "icon": "./g/basket random/icon.png"
+     },
+       {
+      "name": "basket random",
+      "filepath": "./g/basket random/index.html",
+      "icon": "./g/basket random/icon.png"
+     },
+       {
+      "name": "celeste",
+      "filepath": "./g/celeste/index.html",
+      "icon": "./g/celeste/icon.png"
+     },
+       {
+      "name": "fruit ninja",
+      "filepath": "./g/fruit ninja/index.html",
+      "icon": "./g/fruit ninja/icon.png"
+     }
   ]
 }
