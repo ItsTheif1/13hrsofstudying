@@ -119,6 +119,11 @@
       "name": "fruit ninja",
       "filepath": "./g/fruit ninja/index.html",
       "icon": "./g/fruit ninja/icon.png"
+     },
+     {
+      "name": "deltarune (TAKES LONG)",
+      "filepath": "./g/deltarune/index.html",
+      "icon": "./g/deltarune/icon.png"
      }
   ]
 }
