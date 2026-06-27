@@ -52,13 +52,13 @@
      },
      {
       "name": "Plants VS Zombies 2",
-      "filepath": "./g/pvs2/index.html",
-      "icon": "./g/pvs2/icon.png"
+      "filepath": "./g/pvz2/index.html",
+      "icon": "./g/pvz2/icon.png"
     },
      {
-      "name": "cookie clicker",
-      "filepath": "./g/cookie clicker/index.html",
-      "icon": "./g/cookie clicker/icon.png"
+      "name": "Cookie Clicker",
+      "filepath": "./g/Cookie Clicker/index.html",
+      "icon": "./g/Cookie Clicker/icon.png"
      },
     {
       "name": "volley random",
