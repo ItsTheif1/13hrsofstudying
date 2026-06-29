@@ -1,4 +1,4 @@
-# 13hrsofstudying
+# 13hrsofstudying https://i.imgur.com/IqPwUlJ.png
 uhhh hello my name is crewmate
 ## Running it 
 ```
