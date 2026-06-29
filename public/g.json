@@ -46,10 +46,10 @@
       "icon": "./g/smfps/icon.png"
     },
      {
-      "name": "slope",
+      "name": "Slope",
       "filepath": "./g/slope/index.html",
       "icon": "./g/slope/icon.png"
-     },
+    },
      {
       "name": "Plants VS Zombies 2",
       "filepath": "./g/pvz2/index.html",
@@ -126,9 +126,64 @@
       "icon": "./g/deltarune/icon.png"
      },
      {
-      "name": "hotline miami",
-      "filepath": "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor@master/games/16.html",
-      "icon": "https://cdn.jsdelivr.net/gh/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor@master/images/22.jpg"
-     }
+      "name": "hollow knight",
+      "filepath": "./g/hollow knight/index.html",
+      "icon": "./g/hollow kngiht/icon.png"
+     },
+     {
+      "name": "hollow knight silksong",
+      "filepath": "./g/hollow knight silksong/index.html",
+      "icon": "./g/hollow kngiht silksong/icon.png"
+     },
+      {
+      "name": "web fishing",
+      "filepath": "./g/web fishing/index.html",
+      "icon": "https://howlongtobeat.com/games/158224_Webfishing.jpg?width=250"
+    },
+      {
+      "name": "just shapes and beats",
+      "filepath": "./g/just shapes and beats/index.html",
+      "icon": "https://image.api.playstation.com/cdn/UP0060/CUSA10349_00/oCjfxhBPJJuWBO0axtCyzl7HJLK0l8Zm.png?w=440"
+    },
+      {
+      "name": "crazy cattle 3d",
+      "filepath": "./g/crazy cattle 3d/index.html",
+      "icon": "./g/crazy cattle 3d/icon.png"
+    },
+      {
+      "name": "tomodachi life",
+      "filepath": "./g/tomodachi life/index.html",
+      "icon": "./g/tomodachi life/icon.png"
+    },
+      {
+      "name": "we become what we behold",
+      "filepath": "./g/we become what we behold/index.html",
+      "icon": "https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=1200,height=1200,fit=cover,f=png/a0929e5428c5af2666c9eeb3a0441d4c/we-become-what-we-behold-logo.png"
+    },
+    {
+      "name": "untitle goose game",
+      "filepath": "./g/untitle goose game/index.html",
+      "icon": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Untitled_Goose_Game_Cover_art.jpg/250px-Untitled_Goose_Game_Cover_art.jpg"
+    },
+    {
+      "name": "cuphead",
+      "filepath": "./g/cuphead/index.html",
+      "icon": "https://cdn.mos.cms.futurecdn.net/v2/t:0,l:420,cw:1080,ch:1080,q:80,w:1080/i6yoNS8R925bXaxk3F3vAX.jpg"
+    },
+    {
+      "name": "stardew valley",
+      "filepath": "./g/stardew valley/index.html",
+      "icon": "https://www.notebookcheck.net/fileadmin/_processed_/webp/Notebooks/News/_nc4/Stardew-Valley-2-q82-w2560-h.webp"
+    },
+     {
+      "name": "cat goes fishing",
+      "filepath": "./g/cat goes fishing/index.html",
+      "icon": "https://www.notebookcheck.net/fileadmin/_processed_/webp/Notebooks/News/_nc4/Stardew-Valley-2-q82-w2560-h.webp"
+    },
+    {
+      "name": "thats not my neighbor",
+      "filepath": "./g/thats not my neighbor/index.html",
+      "icon": "https://static.wikia.nocookie.net/thats-not-my-neighbor/images/3/39/Site-community-image/revision/latest?cb=20241107092002"
+    }
   ]
 }
