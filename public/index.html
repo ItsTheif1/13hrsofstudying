@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Schoolbell&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="styles.css"/>
 </head>
-<body data-nav="bottom">
+<body data-nav="left">
 <canvas id="bg"></canvas>
 <div id="toast"></div>
 <div id="nav-hint">Shift+Tab to show nav</div>
@@ -45,6 +45,13 @@
   <div class="status-avatar" id="status-avatar-text">?</div>
 </div>
 
+<!-- BOTTOM STATUS BAR -->
+<div id="bottom-status">
+  <span id="bs-time">--:-- --</span>
+  <div class="bs-sep"></div>
+  <span id="bs-battery">🔋 Battery N/A</span>
+</div>
+
 <nav id="topnav">
   <div class="nav-logo" id="nav-logo-text">13</div>
   <div class="nav-divider"></div>
@@ -60,14 +67,19 @@
 <!-- HOME -->
 <div class="section active" id="home-section">
   <div id="home-inner">
-    <div class="home-eyebrow" id="home-greeting">good morning</div>
-    <div class="home-title" id="home-title-text">13</div>
-    <div class="home-search">
-      <input type="text" id="home-search-input" placeholder="Search the web…" autocomplete="off"/>
-      <button id="home-search-btn">Search</button>
+    <div id="home-header">
+      <div class="home-eyebrow" id="home-greeting">good morning</div>
+      <div class="home-title" id="home-title-text">13</div>
+      <div class="home-slogan">set your heart ablaze</div>
+      <div class="home-search">
+        <input type="text" id="home-search-input" placeholder="Search the web…" autocomplete="off"/>
+        <button id="home-search-btn">Search</button>
+      </div>
     </div>
-    <div class="clock-wrap"><div class="clock-time" id="clock-time"></div><div class="clock-date" id="clock-date"></div></div>
-    <div class="home-slogan">set your heart ablaze</div>
+    <div id="home-games-layout">
+      <div id="home-feat-card"></div>
+      <div id="home-card-grid"></div>
+    </div>
   </div>
 </div>
 
