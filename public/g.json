@@ -189,6 +189,16 @@
       "name": "SuperTuxKart",
       "filepath": "./g/supertuxkart/index.html",
       "icon": "https://i.postimg.cc/9FSW-Q2X9/image.png"
+    },
+    {
+      "name": "Sooper Fighterz",
+      "filepath": "./g/sooperfighter/index.html",
+      "icon": "./g/sooperfighter/icon.png"
+    },
+    {
+      "name": "Baldi cornball mod",
+      "filepath": "./g/cornball/index.html",
+      "icon": "./g/cornball/icon.png"
     }
   ]
 }

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | corny</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0d0d0d;
+      z-index: 9999;
+      font-family: 'Verdana', monospace;
+      color: #e0e0e0;
+      gap: 18px;
+      transition: opacity 0.6s ease;
+    }
+
+    #loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #loading-bar-track {
+      width: 280px;
+      height: 3px;
+      background: #222;
+    }
+
+    #loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #fff;
+      transition: width 0.1s linear;
+    }
+  </style>
+</head>
+
+<body style="text-align: center; padding: 0; border: 0; margin: 0;">
+  <div id="loading-overlay">
+    <div id="loading-title">corny</div>
+    <div id="loading-bar-track">
+      <div id="loading-bar-fill"></div>
+    </div>
+    <div id="loading-mb">Initializing…</div>
+  </div>
+
+  <div id="unity-container">
+    <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+    <div id="unity-warning"></div>
+  </div>
+
+  <script>
+    window.addEventListener("load", () => { "serviceWorker" in navigator && navigator.serviceWorker.register("ServiceWorker.js"); });
+
+    const canvas = document.querySelector("#unity-canvas");
+    const warningBanner = document.querySelector("#unity-warning");
+    const overlay = document.getElementById('loading-overlay');
+    const overlayBar = document.getElementById('loading-bar-fill');
+    const loadingMb = document.getElementById('loading-mb');
+
+    function unityShowBanner(msg, type) {
+      function u() { warningBanner.style.display = warningBanner.children.length ? 'block' : 'none'; }
+      const div = document.createElement('div');
+      div.innerHTML = msg;
+      warningBanner.appendChild(div);
+      if (type == "error") div.style = 'background:red;padding:10px;';
+      else {
+        if (type == "warning") div.style = 'background:yellow;padding:10px;';
+        setTimeout(() => { warningBanner.removeChild(div); u(); }, 5000);
+      }
+      u();
+    }
+
+    const buildUrl = "Build";
+    const loaderUrl = buildUrl + "/cornball.loader.js";
+
+    const config = {
+      dataUrl: "",
+      frameworkUrl: buildUrl + "/cornball.framework.js",
+      codeUrl: "",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "corny",
+      productVersion: "1.4.3",
+      showBanner: unityShowBanner
+    };
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      const meta = document.createElement("meta");
+      meta.name = "viewport";
+      meta.content = "width=device-width,height=device-height,initial-scale=1.0,user-scalable=no,shrink-to-fit=yes";
+      document.head.appendChild(meta);
+    }
+
+    // Global download metrics
+    const downloadStatus = {
+      totalBytesDownloaded: 0,
+      totalExpectedBytes: 0
+    };
+
+    function updateDownloadUI() {
+      const downloadedMB = (downloadStatus.totalBytesDownloaded / (1024 * 1024)).toFixed(1);
+      
+      if (downloadStatus.totalExpectedBytes > 0) {
+        const totalMB = (downloadStatus.totalExpectedBytes / (1024 * 1024)).toFixed(1);
+        const percent = Math.min(100, (downloadStatus.totalBytesDownloaded / downloadStatus.totalExpectedBytes) * 100);
+        
+        overlayBar.style.width = percent + "%";
+        loadingMb.textContent = `${downloadedMB} MB / ${totalMB} MB downloaded`;
+      } else {
+        loadingMb.textContent = `${downloadedMB} MB downloaded`;
+      }
+    }
+
+    // Streams file chunks for real-time megabyte counts
+    function fetchWithProgress(url) {
+      return fetch(url).then(response => {
+        if (!response.ok) throw new Error("Failed: " + url);
+        
+        const contentLength = response.headers.get('content-length');
+        if (contentLength) {
+          downloadStatus.totalExpectedBytes += parseInt(contentLength, 10);
+        }
+
+        const reader = response.body.getReader();
+        return new ReadableStream({
+          start(controller) {
+            function push() {
+              reader.read().then(({ done, value }) => {
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                downloadStatus.totalBytesDownloaded += value.byteLength;
+                updateDownloadUI();
+                controller.enqueue(value);
+                push();
+              });
+            }
+            push();
+          }
+        });
+      }).then(stream => new Response(stream)).then(r => r.arrayBuffer());
+    }
+
+    function mergeFiles(parts) {
+      return new Promise((resolve, reject) => {
+        const bufs = [];
+        // Fetch parts in parallel for maximum speed and total size discovery
+        Promise.all(parts.map((url, index) => 
+          fetchWithProgress(url).then(buffer => {
+            bufs[index] = buffer;
+          })
+        ))
+        .then(() => {
+          resolve(URL.createObjectURL(new Blob(bufs)));
+        })
+        .catch(reject);
+      });
+    }
+
+    function getParts(file, count) {
+      const p = [];
+      for (let i = 1; i <= count; i++) p.push(file + ".part" + i);
+      return p;
+    }
+
+    // Dynamic loading engine attachment
+    const script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = async () => {
+      try {
+        const [dataUrl, wasmUrl] = await Promise.all([
+          mergeFiles(getParts(buildUrl + "/cornball.data", 2)),
+          mergeFiles(getParts(buildUrl + "/cornball.wasm", 2))
+        ]);
+        config.dataUrl = dataUrl;
+        config.codeUrl = wasmUrl;
+
+        createUnityInstance(canvas, config, (progress) => {
+          if (progress >= 0.9) {
+            loadingMb.textContent = "Launching Engine...";
+          }
+        }).then(() => {
+          overlayBar.style.width = '100%';
+          overlay.classList.add('hidden');
+          setTimeout(() => overlay.remove(), 700);
+          URL.revokeObjectURL(dataUrl);
+          URL.revokeObjectURL(wasmUrl);
+        }).catch(alert);
+      } catch (e) { alert(e); }
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+
+</html>
