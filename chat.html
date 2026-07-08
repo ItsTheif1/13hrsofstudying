@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>13hrsofstudying — Chat</title>
+  <style>
+    :root{--bg:#f7f7f9;--card:#fff;--muted:#666;--accent:#0366d6}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;margin:0;padding:18px;background:var(--bg);color:#111}
+    .wrap{max-width:900px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{margin:0;font-size:18px}
+    .meta{color:var(--muted);font-size:13px}
+    .chat{margin-top:18px;background:var(--card);border:1px solid #e6e6ea;padding:12px;border-radius:10px;min-height:420px;display:flex;flex-direction:column}
+    .messages{flex:1;overflow:auto;padding:8px;display:flex;flex-direction:column;gap:8px}
+    .msg{padding:10px;border-radius:8px;background:#fbfbfd;border:1px solid #efeff2;max-width:78%}
+    .msg.me{margin-left:auto;background:#e8f0ff;border-color:#d6e7ff}
+    .meta-line{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .controls{display:flex;gap:8px;margin-top:12px;align-items:center}
+    input[type="text"], input[type="search"]{padding:8px;border-radius:8px;border:1px solid #ddd;flex:1}
+    button{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+    .small{font-size:13px;padding:6px 8px;background:#f1f3f5;border-radius:8px;color:#222;border:1px solid #e6e6ea}
+    .toolbar{display:flex;gap:8px;align-items:center}
+    footer{margin-top:12px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Local Chat</h1>
+        <div class="meta">Simple client-side chat (stored in your browser)</div>
+      </div>
+      <div class="toolbar">
+        <label class="small">Nickname: <input id="nick" type="text" placeholder="You" style="margin-left:8px;padding:6px;border-radius:6px;border:1px solid #ddd"></label>
+      </div>
+    </header>
+
+    <div class="chat" role="region" aria-label="chat area">
+      <div id="messages" class="messages" aria-live="polite"></div>
+
+      <div class="controls" role="form" aria-label="message input">
+        <input id="text" type="text" placeholder="Type a message and press Enter" autocomplete="off" />
+        <button id="send">Send</button>
+        <button id="clear" class="small" title="Clear local messages">Clear</button>
+        <button id="export" class="small" title="Export messages as JSON">Export</button>
+      </div>
+    </div>
+
+    <footer>
+      Messages are saved to localStorage only on this device. If you want server sync or moderation features, tell me and I can adapt the page.
+    </footer>
+  </div>
+
+  <script>
+    // Simple local chat: stores messages in localStorage under key '13hr_chat_messages'
+    const MESSAGES_KEY = '13hr_chat_messages_v1';
+    const NICK_KEY = '13hr_chat_nick_v1';
+
+    const messagesEl = document.getElementById('messages');
+    const textEl = document.getElementById('text');
+    const sendBtn = document.getElementById('send');
+    const clearBtn = document.getElementById('clear');
+    const exportBtn = document.getElementById('export');
+    const nickEl = document.getElementById('nick');
+
+    // Load nickname and messages
+    nickEl.value = localStorage.getItem(NICK_KEY) || '';
+    let messages = JSON.parse(localStorage.getItem(MESSAGES_KEY) || '[]');
+
+    function formatTime(ts){
+      const d = new Date(ts);
+      return d.toLocaleString();
+    }
+
+    function render(){
+      messagesEl.innerHTML = '';
+      for (const m of messages){
+        const div = document.createElement('div');
+        div.className = 'msg' + (m.me? ' me':'');
+        const meta = document.createElement('div');
+        meta.className = 'meta-line';
+        meta.textContent = (m.nick || 'Anonymous') + ' • ' + formatTime(m.ts);
+        const body = document.createElement('div');
+        body.textContent = m.text;
+        div.appendChild(meta);
+        div.appendChild(body);
+        messagesEl.appendChild(div);
+      }
+      // scroll to bottom
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function save(){
+      localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+    }
+
+    function sendMessage(){
+      const text = textEl.value.trim();
+      if (!text) return;
+      const nick = nickEl.value.trim() || 'You';
+      const msg = { text, nick, ts: Date.now(), me: true };
+      messages.push(msg);
+      save();
+      render();
+      textEl.value = '';
+      textEl.focus();
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    textEl.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if (!confirm('Clear all local messages? This cannot be undone.')) return;
+      messages = [];
+      save();
+      render();
+    });
+
+    exportBtn.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(messages, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '13hr_chat_messages.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    nickEl.addEventListener('change', () => {
+      localStorage.setItem(NICK_KEY, nickEl.value);
+    });
+
+    // initial render
+    render();
+    textEl.focus();
+  </script>
+</body>
+</html>
