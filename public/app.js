@@ -14,7 +14,7 @@ var weatherLoaded = false, moviesLoaded = false, navHidden = false;
 var curGSGame = null;
 
 /* ── Popular games list (ordered by popularity) ── */
-var POPULAR_KEYS = ['slope','Cookie Clicker','minecraft','subway surfers','angrybirds','fruit ninja','celeste','superhot','pvz2'];
+var POPULAR_KEYS = ['slope','Cookie Clicker','minecraft','subway surfers','deltarune','fruit ninja','celeste','superhot','pvz2'];
 
 /* ── Load games from g.json ── */
 (function(){
@@ -301,24 +301,7 @@ function renderStoreGrid(q){
   });
 }
 
-/* ── discover ── */
-function renderDiscover(){
-  var rowAll=document.getElementById('row-all'),rowShuffle=document.getElementById('row-shuffle');
-  rowAll.innerHTML='';rowShuffle.innerHTML='';
-  ALL.forEach(function(g){rowAll.appendChild(mkCard(g));});
-  ALL.slice().sort(function(){return Math.random()-.5;}).slice(0,16).forEach(function(g){rowShuffle.appendChild(mkCard(g));});
-}
-function mkCard(game){
-  var el=document.createElement('div');el.className='gc';
-  var phContent=game.icon?'<img src="'+game.icon+'" alt="'+game.name+'" style="width:100%;height:100%;object-fit:cover;">':'<div class="gc-ph-l">'+game.name[0].toUpperCase()+'</div>';
-  el.innerHTML='<div class="gc-ph">'+phContent+'</div>'+
-    '<div class="gc-glow"></div>'+
-    '<div class="gc-info"><div class="gc-name">'+game.name+'</div></div>';
-  el.addEventListener('click',function(){openGS(game);});
-  return el;
-}
-
-/* ── game detail sheet (store only: add, no play) ── */
+/* ── game detail sheet  ── */
 function openGS(game){
   curGSGame=game;
   var inLib=GLIB.indexOf(game.url)>=0;
