@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Fullscreen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --teal: #00d9ff;
+      --bg: linear-gradient(135deg, #0a1929 0%, #132f4c 50%, #0d2d4f 100%);
+      --text: #ffffff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar {
+      background: rgba(10, 25, 41, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .topbar-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button {
+      background: var(--teal);
+      color: #0a1929;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+    }
+
+    .url-bar {
+      flex: 1;
+      min-width: 200px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .url-bar:focus {
+      outline: none;
+      border-color: var(--teal);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .game-container {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--teal);
+      font-weight: 600;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0, 217, 255, 0.2);
+      border-top: 3px solid var(--teal);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .download-menu {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      background: rgba(10, 25, 41, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 200px;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .download-menu.active {
+      display: block;
+    }
+
+    .download-option {
+      padding: 10px;
+      color: var(--text);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+
+    .download-option:hover {
+      background: rgba(0, 217, 255, 0.1);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-left">
+      <button id="back-btn" title="Go Back">← Back</button>
+      <button id="exit-fullscreen" title="Exit Fullscreen">⛶ Exit</button>
+    </div>
+    <input type="text" class="url-bar" id="url-input" placeholder="Enter game URL...">
+    <div class="topbar-controls">
+      <button id="reload-btn" title="Reload Game">🔄 Reload</button>
+      <button id="download-btn" title="Download Options">⬇ Download</button>
+    </div>
+  </div>
+
+  <div class="game-container">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div>Loading game...</div>
+    </div>
+    <iframe id="game-iframe" allow="fullscreen;autoplay;gamepad;encrypted-media;clipboard-write" referrerpolicy="no-referrer"></iframe>
+  </div>
+
+  <div class="download-menu" id="download-menu">
+    <button class="download-option" id="download-iframe">📥 Download as HTML</button>
+    <button class="download-option" id="download-url">🔗 Copy Game URL</button>
+    <button class="download-option" id="share-game">📤 Share Game Link</button>
+  </div>
+
+  <script>
+    const gameIframe = document.getElementById('game-iframe');
+    const urlInput = document.getElementById('url-input');
+    const reloadBtn = document.getElementById('reload-btn');
+    const backBtn = document.getElementById('back-btn');
+    const exitBtn = document.getElementById('exit-fullscreen');
+    const downloadBtn = document.getElementById('download-btn');
+    const downloadMenu = document.getElementById('download-menu');
+    const downloadIframe = document.getElementById('download-iframe');
+    const downloadUrl = document.getElementById('download-url');
+    const shareGame = document.getElementById('share-game');
+
+    // Get game URL from query parameter
+    const params = new URLSearchParams(window.location.search);
+    const gameUrl = params.get('url') || '';
+
+    if (gameUrl) {
+      urlInput.value = gameUrl;
+      gameIframe.src = gameUrl;
+    }
+
+    reloadBtn.addEventListener('click', () => {
+      gameIframe.src = urlInput.value || gameUrl;
+    });
+
+    backBtn.addEventListener('click', () => {
+      window.history.back();
+    });
+
+    exitBtn.addEventListener('click', () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        window.history.back();
+      }
+    });
+
+    urlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        gameIframe.src = urlInput.value;
+      }
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      downloadMenu.classList.toggle('active');
+    });
+
+    downloadIframe.addEventListener('click', () => {
+      const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <style>body{margin:0;padding:0}iframe{width:100%;height:100vh;border:none}</style>
+</head>
+<body>
+  <iframe src="${urlInput.value}" allow="fullscreen;autoplay;encrypted-media" referrerpolicy="no-referrer"></iframe>
+</body>
+</html>`;
+      const blob = new Blob([html], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'game.html';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      downloadMenu.classList.remove('active');
+    });
+
+    downloadUrl.addEventListener('click', () => {
+      navigator.clipboard.writeText(urlInput.value);
+      downloadUrl.textContent = '✓ Copied!';
+      setTimeout(() => {
+        downloadUrl.textContent = '🔗 Copy Game URL';
+      }, 2000);
+      downloadMenu.classList.remove('active');
+    });
+
+    shareGame.addEventListener('click', () => {
+      const gameLink = `${window.location.origin}${window.location.pathname}?url=${encodeURIComponent(urlInput.value)}`;
+      navigator.clipboard.writeText(gameLink);
+      shareGame.textContent = '✓ Link Copied!';
+      setTimeout(() => {
+        shareGame.textContent = '📤 Share Game Link';
+      }, 2000);
+      downloadMenu.classList.remove('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!downloadBtn.contains(e.target) && !downloadMenu.contains(e.target)) {
+        downloadMenu.classList.remove('active');
+      }
+    });
+
+    // Request fullscreen on load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      }, 500);
+    });
+  </script>
+</body>
+</html>
