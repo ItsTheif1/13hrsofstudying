@@ -199,6 +199,11 @@
       "name": "Baldi cornball mod",
       "filepath": "./g/cornball/index.html",
       "icon": "./g/cornball/icon.png"
+    },
+     {
+      "name": "zombotron reboot",
+      "filepath": "./g/zombotron reboot/index.html",
+      "icon": "https://play-lh.googleusercontent.com/LdOl3jDNhctUS1K5m0WYEuTttjCwXrqRMrJteU9T7nCCmvZXrbCpvMaOCjCVl2BEYEoQxUm24Qo-eLuP4gGE"
     }
   ]
 }
