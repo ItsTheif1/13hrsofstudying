@@ -1,5 +1,10 @@
 {
   "games": [
+   {
+      "name": "SUGGEST GAMES",
+      "filepath": "./g/SUGGEST GAMES/index.html",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAMAAABC4vDmAAAAflBMVEVnOrf////6+vpeNbGzndtfK7S6rNtlN7ZiN7NUJa63q9lhL7X+//xjM7avmNnb1Ovm4vBwSbtWGLHt6PR3UL6Ncseaf8/z8fdaL7DYzuuqkddcJrN+XMH39vmKbMVaIbJsQrnIvOODYsKyodidhc7j3O+lkdHPxeXDteBMDKyH04XcAAAD00lEQVR4nO3c63qiMBAGYOKi6W6ScoZaRfAAuPd/g6v1RFrECSRxtzvzMz6kbz8OGSnFId3l1YEzuGjp3ZkWVk738Fos6AhU8DrXj1qHI0gfqPcxqm5UKcaYjih3TFadqHkxyvSBckdk1YmaTTWgRmRlEDU8K5OowVkZRbnvw65XZlEDszKMGpaVadSgrIyjhmRlHjUgKwso9axsoJSzsoJSzcoOSnHFsYRyX1WysoVSysoaSiUreyiFrCyi4FnZRIGzsoqCZmUXBczKMgqWlW0UKCvrKEhW9lGA1fkJqMdZPQP1MKunoFy3X/UkVP85+CRUf4f8LFTvcfU0VF9WRlCOqB+jerIyhNoAUPezMoNynB1EdS8rQyjqpIDD6l5WppJyRJykj2vVmZUxlEMFvV9v5/r5yy6qt15+nApRiEIUohCFKEQhClGI+kdQdBqGXx7LYSGwptKWulCirL1qGzPJydKm8gBVebX0/IwmlAgqwjnJNm2VWB/GYEWqoKXShKJzPjkUj+LbflhsyQRcfE51o+iGn+Ym9TUqSjMOR034hmpGifQcCt8vrmPLXME0IanQjUrOKDK7oWI1VKIbRYPoPHdr6sJT2X1RoHv3Oaz+iIqsW+eQ2ORwVetg1HedWuz8fBLNQkm68YB7MPd3i9aG2q7o03KVxAt5jIlNAqpVKc2pb+2jQnx90lIAS97yey/IiELUf4GiTAgmPo8BSzAjnSeLZ5W/XklXT0FdzwdVNZN6Vl2d5zI6NpCTpDU3dTxo48l5ttTfeTrVae3Nlrf9UOxVOk9Pe1Li0nly9/ohLTO46dh56u6n2K3zvD5Br9x5Ms0osbp0nttbUoFSUmSlvfMs/dP+y1tTF41C58n9Un/nmUwOAs63rbNPxBFYxfPUROeZHrpMv5b+J0PEDXAP5l5qpPMUrAwE+zQmygBUpZDWAo1rH+34F5+evzRKJW/1vRdkRCFKP+ovPPsEC+LP1yk6LWNQBczIdWoaN1HkJfIVne39CFZN3J5U19q3Ise1T7p3QoMI3OVxstK+9tGyq/Ncq3SelfYuobufUmvytPdTTMc9Tyudp1qPTrT36LdjqjV1sVbpPPUfU4evMxk5nkO71mfUqQiURdq/jb5vyMsmy71E+kiUswxYzdLAN+SDICwW4ed7CUUIu7tYhKY6z+4asPR9+y4BUYhCFKIQhShEIQpRiEIUohCFKEQhClGIsoEa+5pDOKpowCjijHsh5OM6m95E94/vHB356syHdQnq914BNfIlo4/qckCxbtM9FPHcEa9j7a9LTC/1vdcA/AFwv54gANHRJgAAAABJRU5ErkJggg=="
+    },
     {
       "name": "Something",
       "filepath": "./g/something/index.html",
