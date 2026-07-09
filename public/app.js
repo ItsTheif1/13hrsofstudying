@@ -300,6 +300,22 @@ function renderStoreGrid(q){
     grid.appendChild(el);
   });
 }
+/* ── discover ── */
+function renderDiscover(){
+  var rowAll=document.getElementById('row-all'),rowShuffle=document.getElementById('row-shuffle');
+  rowAll.innerHTML='';rowShuffle.innerHTML='';
+  ALL.forEach(function(g){rowAll.appendChild(mkCard(g));});
+  ALL.slice().sort(function(){return Math.random()-.5;}).slice(0,16).forEach(function(g){rowShuffle.appendChild(mkCard(g));});
+}
+function mkCard(game){
+  var el=document.createElement('div');el.className='gc';
+  var phContent=game.icon?'<img src="'+game.icon+'" alt="'+game.name+'" style="width:100%;height:100%;object-fit:cover;">':'<div class="gc-ph-l">'+game.name[0].toUpperCase()+'</div>';
+  el.innerHTML='<div class="gc-ph">'+phContent+'</div>'+
+    '<div class="gc-glow"></div>'+
+    '<div class="gc-info"><div class="gc-name">'+game.name+'</div></div>';
+  el.addEventListener('click',function(){openGS(game);});
+  return el;
+}
 
 /* ── game detail sheet  ── */
 function openGS(game){
