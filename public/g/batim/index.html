@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATIM</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        iframe {
+            position: fixed;
+            bottom: 1%;
+            right: 1%;
+            width: 99%;
+            height: 99%;
+            border: none;
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<iframe allowtransparency="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true" allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated; web-share" frameborder="0" allowfullscreen="true" scrolling="no" src="https://html-classic.itch.zone/html/12450115/BendyGL_1.5.0/index.html" id="game_drop"></iframe>
+<script>
+	window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+            event.returnValue = '';
+        });
+		
+		document.addEventListener('keydown', (event) => {
+    if (event.key === 'F' || event.key === 'f') {
+        if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+    }
+});
+    </script>
+</body>
+</html>
