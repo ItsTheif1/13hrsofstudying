@@ -210,5 +210,25 @@
       "filepath": "./g/zombotron reboot/index.html",
       "icon": "https://play-lh.googleusercontent.com/LdOl3jDNhctUS1K5m0WYEuTttjCwXrqRMrJteU9T7nCCmvZXrbCpvMaOCjCVl2BEYEoQxUm24Qo-eLuP4gGE"
     }
-  ]
+      {
+      "name": "batim",
+      "filepath": "./g/batim/index.html",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMFfF3337sIZ_tGtXS-PQvBk3K-mnFigz9bmewRgStaw&s=10"
+    },
+    {
+      "name": "1v1.lol,
+      "filepath": "./g/1v1.lol/index.html",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwEaEeiMfkXELEXqopOaFjAO7x762S7mnZOHcx-ZAhw&s=10"
+    },
+     {
+      "name": "gta3",
+      "filepath": "./g/gta3/index.html",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyCVoLnyZeA5EQ85iJN1cZ2PQMbBtuOFBMgFLp_7rapw&s=10"
+     },
+       {
+      "name": "murder",
+      "filepath": "./g/murder/index.html",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpi7iX1zqYLOmz1LrYMBbMTD2JKIjZpnq-PJ_UEddb3Q&s=10"
+     }
+       ]
 }
