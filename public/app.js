@@ -3,7 +3,7 @@
    ══════════════════════════════════════ */
 var CORRECT_CODE = 'idontknowhowtocode';
 
-var CLOAK_MAP = {none:{title:null,favicon:null},classroom:{title:'Stream - Google Classroom',favicon:'https://ssl.gstatic.com/classroom/favicon.png'},docs:{title:'Document - Google Docs',favicon:'h[...'};
+var CLOAK_MAP = {none:{title:null,favicon:null},classroom:{title:'Stream - Google Classroom',favicon:'https://ssl.gstatic.com/classroom/favicon.png'},docs:{title:'Document - Google Docs',favicon:'https://docs.google.com/favicon.ico'},sheets:{title:'Sheets - Google Sheets',favicon:'https://sheets.google.com/favicon.ico'},slides:{title:'Presentation - Google Slides',favicon:'https://slides.google.com/favicon.ico'},gmail:{title:'Gmail',favicon:'https://mail.google.com/favicon.ico'},meet:{title:'Meet - Google Meet',favicon:'https://meet.google.com/favicon.ico'}};
 var S = {theme:'black',name:localStorage.getItem('s_name')||'mizumath copy',proxy:localStorage.getItem('s_proxy')||'uv',cloak:localStorage.getItem('s_cloak')||'none',navPlace:localStorage.getItem('s_navplace')||'left'};
 
 var ALL = [];
@@ -86,18 +86,18 @@ function renderHomeGames(){
 (function(){if(localStorage.getItem('gate_passed')==='1'){document.getElementById('gate').style.display='none';if(!localStorage.getItem('gamertag'))setTimeout(openTagModal,300);}})();
 document.getElementById('gate-btn').addEventListener('click',checkGate);
 document.getElementById('gate-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkGate();});
-function checkGate(){var v=document.getElementById('gate-input').value.toLowerCase(),err=document.getElementById('gate-err');if(v===CORRECT_CODE){localStorage.setItem('gate_passed','1');var g=docu[...}
+function checkGate(){var v=document.getElementById('gate-input').value.toLowerCase(),err=document.getElementById('gate-err');if(v===CORRECT_CODE){localStorage.setItem('gate_passed','1');var g=document.getElementById('gate');g.style.opacity='0';setTimeout(function(){g.style.display='none';},400);if(!localStorage.getItem('gamertag'))setTimeout(openTagModal,300);}else{err.textContent='Wrong code';setTimeout(function(){err.textContent='';},2200);}}
 
 /* ── GAMERTAG ── */
 document.getElementById('status-bar').addEventListener('click',openTagModal);
 document.getElementById('tag-close-btn').addEventListener('click',closeTagModal);
 document.getElementById('tag-save-btn').addEventListener('click',saveTag);
 document.getElementById('tag-overlay').addEventListener('click',function(e){if(e.target===this)closeTagModal();});
-function openTagModal(){var t=localStorage.getItem('gamertag')||'';document.getElementById('tag-input').value=t;document.getElementById('tag-err').textContent='';updateTagModalDisplay(t);document.[...}
+function openTagModal(){var t=localStorage.getItem('gamertag')||'';document.getElementById('tag-input').value=t;document.getElementById('tag-err').textContent='';updateTagModalDisplay(t);document.getElementById('tag-overlay').classList.add('open');}
 function closeTagModal(){document.getElementById('tag-overlay').classList.remove('open');}
 function updateTagModalDisplay(t){document.getElementById('tag-name-display').textContent=t||'No tag set';document.getElementById('tag-avatar-big').textContent=t?t[0].toUpperCase():'?';}
-function saveTag(){var v=document.getElementById('tag-input').value.trim(),err=document.getElementById('tag-err');if(!v){err.textContent='Enter a gamertag.';return;}if(v.length<2){err.textContent=[...}
-function updateStatusBar(){var t=localStorage.getItem('gamertag')||'',u=document.getElementById('status-username-text'),a=document.getElementById('status-avatar-text');if(t){u.textContent=t;u.cla[...}
+function saveTag(){var v=document.getElementById('tag-input').value.trim(),err=document.getElementById('tag-err');if(!v){err.textContent='Enter a gamertag.';return;}if(v.length<2){err.textContent='Gamertag too short.';return;}if(v.length>20){err.textContent='Gamertag too long.';return;}localStorage.setItem('gamertag',v);updateTagModalDisplay(v);closeTagModal();updateStatusBar();}
+function updateStatusBar(){var t=localStorage.getItem('gamertag')||'',u=document.getElementById('status-username-text'),a=document.getElementById('status-avatar-text');if(t){u.textContent=t;u.classList.remove('hidden');a.textContent=t[0].toUpperCase();}else{u.classList.add('hidden');a.textContent='?';}}
 
 /* ── SHIFT+TAB → hide/show nav ── */
 document.addEventListener('keydown',function(e){
@@ -125,16 +125,16 @@ function showSection(id){
 /* ── SETTINGS ── */
 document.querySelectorAll('.theme-swatch').forEach(function(s){s.addEventListener('click',function(){if(this.dataset.theme==='soon'){showToast('Coming soon!');return;}seedParticles();});});
 document.querySelectorAll('.name-pill').forEach(function(b){b.addEventListener('click',function(){pickName(this.dataset.name);});});
-function applyName(n){var l=n||'mizumath copy';document.getElementById('home-title-text').textContent=l;document.getElementById('nav-logo-text').textContent='13';if(S.cloak==='none')document.getE[...}
+function applyName(n){var l=n||'mizumath copy';document.getElementById('home-title-text').textContent=l;document.getElementById('nav-logo-text').textContent='13';if(S.cloak==='none')document.getElementById('page-title').textContent=l;}
 function pickName(n){S.name=n;localStorage.setItem('s_name',n);applyName(n);}
 document.getElementById('place-bottom').addEventListener('click',function(){setNavPlacement('bottom');});
 document.getElementById('place-left').addEventListener('click',function(){setNavPlacement('left');});
-function applyNavPlacement(p){document.body.setAttribute('data-nav',p);document.getElementById('place-bottom').classList.toggle('active',p==='bottom');document.getElementById('place-left').classL[...}
+function applyNavPlacement(p){document.body.setAttribute('data-nav',p);document.getElementById('place-bottom').classList.toggle('active',p==='bottom');document.getElementById('place-left').classList.toggle('active',p==='left');}
 function setNavPlacement(p){S.navPlace=p;localStorage.setItem('s_navplace',p);applyNavPlacement(p);showToast('Bar: '+p);}
 document.querySelectorAll('.proxy-opt').forEach(function(o){o.addEventListener('click',function(){setProxy(this.id.replace('proxy-',''));});});
-function setProxy(p){S.proxy=p;localStorage.setItem('s_proxy',p);document.querySelectorAll('.proxy-opt').forEach(function(o){o.classList.remove('active');});var el=document.getElementById('proxy-[...'}
+function setProxy(p){S.proxy=p;localStorage.setItem('s_proxy',p);document.querySelectorAll('.proxy-opt').forEach(function(o){o.classList.remove('active');});var el=document.getElementById('proxy-'+p);if(el)el.classList.add('active');}
 document.querySelectorAll('.cloak-opt').forEach(function(o){o.addEventListener('click',function(){setCloak(this.dataset.cloak);});});
-function applyCloak(c){var cfg=CLOAK_MAP[c]||CLOAK_MAP.none;document.getElementById('page-title').textContent=cfg.title||(S.name||'mizumath copy');var lk=document.querySelector("link[rel~=\'icon\']")[...}
+function applyCloak(c){var cfg=CLOAK_MAP[c]||CLOAK_MAP.none;document.getElementById('page-title').textContent=cfg.title||(S.name||'mizumath copy');var lk=document.querySelector("link[rel~='icon']");if(lk){if(cfg.favicon)lk.href=cfg.favicon;}else if(cfg.favicon){var lnk=document.createElement('link');lnk.rel='icon';lnk.href=cfg.favicon;document.head.appendChild(lnk);}}
 function setCloak(c){S.cloak=c;localStorage.setItem('s_cloak',c);applyCloak(c);showToast(c==='none'?'Cloak off':'Tab cloaked!');}
 
 /* ── TOAST ── */
@@ -158,8 +158,8 @@ resizeBg();window.addEventListener('resize',resizeBg);
 
 /* ── GAMES CANVAS BG ── */
 var gCvs=document.getElementById('g-canvas'),gCtx=gCvs&&gCvs.getContext('2d'),gOrbs=[];
-function initGBg(){if(!gCvs)return;gCvs.width=gCvs.offsetWidth||innerWidth;gCvs.height=gCvs.offsetHeight||innerHeight;gOrbs=[{ox:.12,oy:.18,r:.52,s:.00022,a:.13,p:1.7},{ox:.8,oy:.12,r:.42,s:.0001[...});}
-function drawGBg(t){if(!gCtx)return;var sec=document.getElementById('games-section');if(!sec||!sec.classList.contains('active'))return;var w=gCvs.width,h=gCvs.height,sky=gCtx.createLinearGradient(0,0,0,h);[...];}
+function initGBg(){if(!gCvs)return;gCvs.width=gCvs.offsetWidth||innerWidth;gCvs.height=gCvs.offsetHeight||innerHeight;gOrbs=[{ox:.12,oy:.18,r:.52,s:.00022,a:.13,p:1.7},{ox:.8,oy:.12,r:.42,s:.00011,a:.09,p:3.14},{ox:.5,oy:.95,r:.46,s:.00008,a:.06,p:4.7}];}
+function drawGBg(t){if(!gCtx)return;var sec=document.getElementById('games-section');if(!sec||!sec.classList.contains('active'))return;var w=gCvs.width,h=gCvs.height,sky=gCtx.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#141921');sky.addColorStop(.5,'#0a0f18');sky.addColorStop(1,'#000');gCtx.fillStyle=sky;gCtx.fillRect(0,0,w,h);gCtx.globalCompositeOperation='lighter';gOrbs.forEach(function(o){var x=o.ox*w,y=o.oy*h,r=o.r*Math.max(w,h),a=o.a*(.6+.4*Math.sin(t*o.s+o.p)),g=gCtx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,'rgba(200,210,255,'+a+')');g.addColorStop(.5,'rgba(100,120,200,'+(a*.3)+')');g.addColorStop(1,'transparent');gCtx.fillStyle=g;gCtx.fillRect(0,0,w,h);});gCtx.globalCompositeOperation='source-over';}
 initGBg();window.addEventListener('resize',initGBg);
 
 /* ── MAIN LOOP ── */
@@ -189,9 +189,9 @@ function loop(t){
 }
 requestAnimationFrame(loop);
 
-/* ══════════════════════════════════
+/* ══════════════════════════════════════
    GAME LIBRARY — local games from g.json
-   ══════════════════════════════════ */
+   ══════════════════════════════════════ */
 
 document.querySelectorAll('.gtab').forEach(function(b){b.addEventListener('click',function(){switchGTab(this.dataset.t);});});
 function switchGTab(t){
@@ -395,7 +395,7 @@ function openGameOverlay(url,label){
   iframe.src=buildProxyUrl(url);
   updateProxyNav();
 }
-function proxyNavigate(input){var url=input.trim();if(!url)return;if(!url.startsWith('http://')&&!url.startsWith('https://')){url=(url.indexOf('.')>=0&&url.indexOf(' ')<0)?'https://'+url:'https://duckduckgo.com/?q='+encodeURIComponent(input);}proxyHistory.splice(proxyHistoryIndex+1);proxyHistory.push(url);proxyHistoryIndex=proxyHistory.length-1;document.getElementById('game-overlay-iframe').src=buildProxyUrl(url);updateProxyNav();}
+function proxyNavigate(input){var url=input.trim();if(!url)return;if(!url.startsWith('http://')&&!url.startsWith('https://')){url=(url.indexOf('.')>=0&&url.indexOf(' ')<0)?'https://'+url:'https://www.google.com/search?q='+encodeURIComponent(url);}proxyHistory.push(url);proxyHistoryIndex=proxyHistory.length-1;document.getElementById('proxy-url-bar').value=url;document.getElementById('game-overlay-iframe').src=buildProxyUrl(url);updateProxyNav();}
 function updateProxyNav(){try{document.getElementById('proxy-back-btn').disabled=proxyHistoryIndex<=0;document.getElementById('proxy-fwd-btn').disabled=proxyHistoryIndex>=proxyHistory.length-1;}catch(e){}}
 function closeGame(){document.getElementById('game-overlay').classList.remove('open');document.getElementById('game-overlay-iframe').src='about:blank';}
 
@@ -405,7 +405,7 @@ function quickPlay(url,name){openGameOverlay(url,name);}
 /* ── home search ── */
 document.getElementById('home-search-btn').addEventListener('click',homeSearchGo);
 document.getElementById('home-search-input').addEventListener('keydown',function(e){if(e.key==='Enter')homeSearchGo();});
-function homeSearchGo(){var val=document.getElementById('home-search-input').value.trim();if(!val)return;document.getElementById('home-search-input').value='';var url;if(val.startsWith('http://')||val.startsWith('https://'))url=val;else url='https://duckduckgo.com/?q='+encodeURIComponent(val);openGameOverlay(url,'Search');}
+function homeSearchGo(){var val=document.getElementById('home-search-input').value.trim();if(!val)return;document.getElementById('home-search-input').value='';var url;if(val.startsWith('http://')||val.startsWith('https://')){url=val;}else{url=val.indexOf('.')>=0&&val.indexOf(' ')<0?'https://'+val:'https://www.google.com/search?q='+encodeURIComponent(val);}openGameOverlay(url,val);}
 
 /* ── APPS panel system ── */
 document.querySelectorAll('.app-icon-btn').forEach(function(btn){btn.addEventListener('click',function(){openAppPanel(this.dataset.app);});});
