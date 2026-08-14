@@ -17,157 +17,177 @@
       --bg-alt: #0a0a0a;
       --text: #ffffff;
       --text-muted: #888888;
+      --border: rgba(255, 255, 255, 0.1);
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow: hidden;
       height: 100vh;
     }
 
-    /* BACKGROUND WITH LOGO */
-    #bg-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      background-image: url('');
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.3;
-    }
-
-    .bg-logo {
-      font-size: 200px;
-      opacity: 0.1;
-    }
-
-    /* TOP BAR (YASB-LIKE) */
+    /* YASB-STYLE TOP BAR */
     #topbar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 50px;
-      background: rgba(15, 15, 15, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      right: 0;
+      height: 45px;
+      background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(15,15,15,0.95) 100%);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      padding: 0 16px;
-      gap: 16px;
+      padding: 0 12px;
+      gap: 12px;
       z-index: 1000;
       backdrop-filter: blur(10px);
     }
 
-    .topbar-left {
+    .topbar-section {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex: 1;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .topbar-left {
+      flex: 0;
+      border-right: 1px solid var(--border);
+      padding-right: 12px;
     }
 
     .topbar-logo {
-      font-weight: bold;
-      font-size: 18px;
+      font-weight: 700;
+      font-size: 16px;
       color: var(--primary);
-      min-width: 50px;
+      letter-spacing: 1px;
+    }
+
+    .topbar-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .topbar-tabs {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       align-items: center;
     }
 
     .topbar-tab {
       padding: 6px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
       color: var(--text-muted);
-      font-size: 12px;
+      font-size: 11px;
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
     }
 
     .topbar-tab:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text);
+      border-color: var(--border);
     }
 
     .topbar-tab.active {
-      background: var(--primary);
-      color: var(--bg);
+      background: rgba(0, 255, 0, 0.15);
+      color: var(--primary);
       border-color: var(--primary);
     }
 
-    .search-box {
-      padding: 6px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      color: var(--text);
-      width: 200px;
-      font-size: 12px;
+    /* PROXY URL BAR - CENTERED */
+    .proxy-search {
+      flex: 0.6;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 4px 8px;
+      gap: 6px;
     }
 
-    .search-box::placeholder {
+    .proxy-search input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 11px;
+      outline: none;
+    }
+
+    .proxy-search input::placeholder {
       color: var(--text-muted);
     }
 
     .topbar-right {
+      flex: 0;
       display: flex;
       align-items: center;
       gap: 12px;
-      min-width: 250px;
+      border-left: 1px solid var(--border);
+      padding-left: 12px;
+      min-width: 200px;
       justify-content: flex-end;
     }
 
-    .greeting {
-      font-size: 12px;
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
+    .greeting {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: lowercase;
+    }
+
     .user-tag {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--primary);
-      font-weight: bold;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     /* MAIN LAYOUT */
     #main-container {
       display: flex;
-      height: calc(100vh - 50px);
-      margin-top: 50px;
+      height: calc(100vh - 45px);
+      margin-top: 45px;
     }
 
-    /* FAKE TERMINAL / SIDEBAR */
+    /* FAKE TERMINAL SIDEBAR */
     #terminal {
-      width: 300px;
+      width: 280px;
       background: var(--bg-alt);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       font-family: 'Courier New', monospace;
-      font-size: 12px;
+      font-size: 11px;
       padding: 12px;
       overflow-y: auto;
     }
 
     .terminal-line {
       color: var(--text-muted);
-      margin: 4px 0;
+      margin: 3px 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      line-height: 1.5;
     }
 
     .terminal-line.command {
@@ -198,214 +218,215 @@
       display: flex;
     }
 
-    /* GAMES LIBRARY */
-    .games-header {
-      margin-bottom: 20px;
+    /* GAMES SECTION */
+    .games-header h2 {
+      color: var(--primary);
+      font-size: 16px;
+      margin-bottom: 12px;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
     }
 
-    .games-header h2 {
-      margin-bottom: 10px;
-      color: var(--primary);
+    .games-header p {
+      color: var(--text-muted);
+      font-size: 11px;
+      margin-bottom: 16px;
     }
 
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 12px;
     }
 
     .game-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px;
       cursor: pointer;
       transition: all 0.2s;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
     .game-card:hover {
-      background: rgba(0, 255, 0, 0.1);
+      background: rgba(0, 255, 0, 0.08);
       border-color: var(--primary);
-      transform: translateY(-2px);
+      transform: translateY(-1px);
     }
 
     .game-icon {
-      font-size: 48px;
-      margin-bottom: 8px;
+      font-size: 40px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .game-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .game-name {
-      font-size: 12px;
+      font-size: 10px;
       color: var(--text);
       word-break: break-word;
+      line-height: 1.3;
     }
 
     /* PROXY SECTION */
     #proxy-section {
       display: flex;
       flex-direction: column;
+      padding: 0 !important;
     }
 
-    #proxy-bar {
+    #proxy-controls {
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-      background: rgba(255, 255, 255, 0.05);
+      gap: 6px;
       padding: 12px;
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
     }
 
-    #proxy-bar button {
-      padding: 6px 12px;
-      background: rgba(0, 255, 0, 0.2);
+    #proxy-controls button {
+      padding: 6px 10px;
+      background: rgba(0, 255, 0, 0.15);
       border: 1px solid var(--primary);
-      border-radius: 4px;
+      border-radius: 3px;
       color: var(--primary);
       cursor: pointer;
-      font-size: 12px;
+      font-size: 10px;
+      transition: all 0.2s;
+      font-weight: 600;
     }
 
-    #proxy-bar button:hover {
-      background: rgba(0, 255, 0, 0.3);
+    #proxy-controls button:hover {
+      background: rgba(0, 255, 0, 0.25);
     }
 
-    #proxy-url-bar {
+    #proxy-controls button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    #proxy-url-display {
       flex: 1;
-      padding: 6px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      color: var(--text);
-      font-size: 12px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     #game-frame {
       flex: 1;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      border: none;
       background: var(--bg);
     }
 
     /* SETTINGS */
     .settings-group {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .settings-group h3 {
       color: var(--primary);
-      margin-bottom: 12px;
-      font-size: 14px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
     }
 
     .setting-item {
       display: flex;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 10px;
       align-items: center;
     }
 
     .setting-label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      min-width: 120px;
+      min-width: 100px;
     }
 
     .setting-input {
-      padding: 6px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 3px;
       color: var(--text);
-      font-size: 12px;
+      font-size: 11px;
       flex: 1;
     }
 
     .setting-btn {
-      padding: 6px 12px;
-      background: rgba(0, 255, 0, 0.2);
+      padding: 6px 10px;
+      background: rgba(0, 255, 0, 0.15);
       border: 1px solid var(--primary);
-      border-radius: 4px;
+      border-radius: 3px;
       color: var(--primary);
       cursor: pointer;
-      font-size: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      transition: all 0.2s;
     }
 
     .setting-btn:hover {
-      background: rgba(0, 255, 0, 0.3);
+      background: rgba(0, 255, 0, 0.25);
     }
 
     /* UPDATE LOG */
     .update-log {
       background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
       padding: 12px;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .update-entry {
       margin-bottom: 12px;
       padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--border);
     }
 
     .update-entry:last-child {
       border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
     }
 
     .update-version {
       color: var(--primary);
-      font-weight: bold;
+      font-weight: 600;
       margin-bottom: 4px;
+      text-transform: lowercase;
     }
 
     .update-text {
       color: var(--text-muted);
-    }
-
-    /* SEARCH MODAL */
-    .search-modal {
-      position: fixed;
-      top: 70px;
-      left: 316px;
-      background: rgba(15, 15, 15, 0.98);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      z-index: 500;
-      display: none;
-      flex-direction: column;
-      width: 250px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .search-modal.show {
-      display: flex;
-    }
-
-    .search-option {
-      padding: 12px 16px;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.2s;
-    }
-
-    .search-option:hover {
-      background: rgba(0, 255, 0, 0.1);
-      color: var(--primary);
-    }
-
-    .search-option:last-child {
-      border-bottom: none;
+      line-height: 1.4;
     }
 
     /* SCROLLBAR */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -413,43 +434,62 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 16px;
+      margin-bottom: 16px;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
+    }
+
+    select {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text);
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+
+    select option {
+      background: var(--bg-alt);
+      color: var(--text);
     }
   </style>
 </head>
 <body>
-  <!-- BACKGROUND -->
-  <div id="bg-container">
-    <div class="bg-logo">🍋</div>
-  </div>
-
-  <!-- TOP BAR -->
+  <!-- YASB-STYLE TOP BAR -->
   <div id="topbar">
-    <div class="topbar-left">
+    <!-- Logo / Left -->
+    <div class="topbar-section topbar-left">
       <div class="topbar-logo">sour</div>
-      <div class="topbar-tabs">
-        <div class="topbar-tab active" data-section="games">games</div>
-        <div class="topbar-tab" data-section="proxy">proxy</div>
-        <div class="topbar-tab" data-section="settings">settings</div>
-        <div class="topbar-tab" data-section="updates">updates</div>
-      </div>
     </div>
-    <input type="text" id="topbar-search" class="search-box" placeholder="search games...">
-    <div class="topbar-right">
-      <span class="greeting" id="greeting">good morning</span>
-      <span class="user-tag" id="user-tag">Guest</span>
-    </div>
-  </div>
 
-  <!-- SEARCH MODAL -->
-  <div class="search-modal" id="search-modal">
-    <div class="search-option" data-source="local">📦 Local Games</div>
-    <div class="search-option" data-source="luminsdk">🌟 LuminSDK</div>
+    <!-- Tabs / Center-Left -->
+    <div class="topbar-section topbar-tabs">
+      <div class="topbar-tab active" data-section="games">games</div>
+      <div class="topbar-tab" data-section="settings">settings</div>
+      <div class="topbar-tab" data-section="updates">updates</div>
+    </div>
+
+    <!-- PROXY SEARCH - CENTER -->
+    <div class="topbar-section proxy-search">
+      <input type="text" id="topbar-search" placeholder="search a tab...">
+    </div>
+
+    <!-- Status / Right -->
+    <div class="topbar-section topbar-right">
+      <span class="greeting" id="greeting">good morning</span>
+      <span class="user-tag" id="user-tag">guest</span>
+    </div>
   </div>
 
   <!-- MAIN LAYOUT -->
@@ -457,11 +497,14 @@
     <!-- FAKE TERMINAL SIDEBAR -->
     <div id="terminal">
       <div class="terminal-line command">sour@localhost ~ $</div>
-      <div class="terminal-line output">Welcome to Sour</div>
-      <div class="terminal-line output">Type 'help' for commands</div>
+      <div class="terminal-line output">welcome to sour</div>
+      <div class="terminal-line output">type 'help' for commands</div>
       <div class="terminal-line command">$ games --load</div>
-      <div class="terminal-line output">✓ Local library loaded</div>
-      <div class="terminal-line output">✓ Ready to play</div>
+      <div class="terminal-line output">✓ local library loaded</div>
+      <div class="terminal-line output">✓ system ready</div>
+      <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05)"></div>
+      <div class="terminal-line command">$ proxy --status</div>
+      <div class="terminal-line output">✓ proxy online</div>
     </div>
 
     <!-- CONTENT AREA -->
@@ -469,8 +512,8 @@
       <!-- GAMES SECTION -->
       <div class="section active" id="games-section">
         <div class="games-header">
-          <h2>Library</h2>
-          <p style="color: var(--text-muted); font-size: 12px;">Your saved games</p>
+          <h2>library</h2>
+          <p>your saved games</p>
         </div>
         <div class="game-grid" id="game-grid">
           <!-- Games populated here -->
@@ -479,51 +522,51 @@
 
       <!-- PROXY SECTION -->
       <div class="section" id="proxy-section">
-        <div id="proxy-bar">
-          <button id="proxy-back-btn">←</button>
-          <button id="proxy-fwd-btn">→</button>
-          <button id="proxy-refresh-btn">↻</button>
-          <input type="text" id="proxy-url-bar" placeholder="Enter URL...">
-          <button id="proxy-close-btn">✕</button>
+        <div id="proxy-controls">
+          <button id="proxy-back-btn">← back</button>
+          <button id="proxy-fwd-btn">fwd →</button>
+          <button id="proxy-refresh-btn">⟳ refresh</button>
+          <div id="proxy-url-display">no page loaded</div>
         </div>
         <iframe id="game-frame" allow="fullscreen;autoplay;encrypted-media;clipboard-write" referrerpolicy="no-referrer"></iframe>
       </div>
 
       <!-- SETTINGS SECTION -->
       <div class="section" id="settings-section">
-        <h2 style="color: var(--primary); margin-bottom: 20px;">Settings</h2>
+        <h2>settings</h2>
         
         <div class="settings-group">
-          <h3>Profile</h3>
+          <h3>profile</h3>
           <div class="setting-item">
-            <label class="setting-label">Gamertag</label>
-            <input type="text" id="gamertag-input" class="setting-input" placeholder="Enter gamertag">
-            <button class="setting-btn" onclick="saveGamertag()">Save</button>
+            <label class="setting-label">gamertag</label>
+            <input type="text" id="gamertag-input" class="setting-input" placeholder="enter gamertag">
+            <button class="setting-btn" onclick="saveGamertag()">save</button>
           </div>
         </div>
 
         <div class="settings-group">
-          <h3>Background</h3>
+          <h3>background</h3>
           <div class="setting-item">
-            <label class="setting-label">Background URL</label>
-            <input type="text" id="bg-url-input" class="setting-input" placeholder="Enter image or GIF URL">
-            <button class="setting-btn" onclick="setCustomBg()">Apply</button>
+            <label class="setting-label">image/gif url</label>
+            <input type="text" id="bg-url-input" class="setting-input" placeholder="enter url">
+            <button class="setting-btn" onclick="setCustomBg()">apply</button>
           </div>
           <div class="setting-item">
-            <label class="setting-label">Reset</label>
-            <button class="setting-btn" onclick="resetBg()">Default</button>
+            <label class="setting-label"></label>
+            <button class="setting-btn" onclick="resetBg()">reset to default</button>
           </div>
         </div>
 
         <div class="settings-group">
-          <h3>Theme</h3>
+          <h3>theme</h3>
           <div class="setting-item">
-            <label class="setting-label">Color</label>
+            <label class="setting-label">color</label>
             <select id="theme-select" class="setting-input" onchange="changeTheme()">
-              <option value="green">Green (Default)</option>
-              <option value="blue">Blue</option>
-              <option value="pink">Pink</option>
-              <option value="yellow">Yellow</option>
+              <option value="green">green (default)</option>
+              <option value="blue">blue</option>
+              <option value="pink">pink</option>
+              <option value="yellow">yellow</option>
+              <option value="cyan">cyan</option>
             </select>
           </div>
         </div>
@@ -531,17 +574,17 @@
 
       <!-- UPDATES SECTION -->
       <div class="section" id="updates-section">
-        <h2 style="color: var(--primary); margin-bottom: 20px;">Update Log</h2>
+        <h2>update log</h2>
         <div class="update-log">
           <div class="update-entry">
-            <div class="update-version">v1.0 - A New Chapter</div>
-            <div class="update-text">✨ Renamed to Sour</div>
-            <div class="update-text">🎨 Complete UI overhaul with YASB-inspired top bar</div>
-            <div class="update-text">🖥️ Added fake terminal sidebar</div>
-            <div class="update-text">🎮 Improved game library with search</div>
-            <div class="update-text">🌐 Enhanced proxy with better controls</div>
-            <div class="update-text">🎨 Custom background support (images & GIFs)</div>
-            <div class="update-text">🔧 New settings panel with theme options</div>
+            <div class="update-version">v1.0 - a new chapter</div>
+            <div class="update-text">✨ renamed to sour</div>
+            <div class="update-text">🎨 yasb-inspired top bar design</div>
+            <div class="update-text">🖥️ fake terminal sidebar</div>
+            <div class="update-text">🎮 simple game library</div>
+            <div class="update-text">🌐 proxy tab support</div>
+            <div class="update-text">🎨 custom bg & theme support</div>
+            <div class="update-text">⚙️ minimalist settings</div>
           </div>
         </div>
       </div>
